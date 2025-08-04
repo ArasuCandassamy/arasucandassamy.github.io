@@ -9,65 +9,63 @@ redirect_from:
 
 <link rel="stylesheet" href="{{ '/assets/css/cv-style.css' | relative_url }}">
 
+{% include base_path %}
+
+
 <style>
-/* Ensure details animations work */
-details > summary {
-  list-style: none !important;
+details summary {
   cursor: pointer;
+  font-weight: bold;
+  margin-top: 0.5em;
 }
 
-details > summary::-webkit-details-marker {
-  display: none !important;
+details summary .triangle {
+  display: inline-block;
+  transform: rotate(0deg);
+  transition: transform 0.2s ease;
+  margin-left: 5px;
 }
 
-details > summary::marker {
-display: none !important;
-}
-
-.triangle {
-  display: inline-block !important;
-  transition: transform 0.3s ease-in-out !important;
-  font-size: 1.0em !important;
-  margin-left: 5px !important;
-  transform-origin: center !important;
-  color: #666 !important;
+details[open] summary .triangle {
+  transform: rotate(90deg);
 }
 
 .slide-content {
-  overflow: hidden !important;
-  transition: max-height 0.6s ease-in-out !important;
+  padding: 0.5em 1em;
+  background-color: #f9f9f9;
+  border-left: 3px solid #ccc;
+  margin-top: 0.5em;
+  border-radius: 4px;
 }
-
-details > summary:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-  border-radius: 3px;
-  padding: 2px 4px;
-  margin: -2px -4px;
-}
-
 </style>
-
-{% include base_path %}
-
 Education
 ======
-* **ENSTA Paris** – _Palaiseau, France (2023-2026)_
-  * <strong>3<sup>e</sup> année</strong> : Programme d'Approfondissement en Physique Fondamentale à l'**École Polytechnique**
-  * <details>
-    <summary>
-      <strong>2<sup>e</sup> année</strong> : Majeure en Mathématiques Appliquées 
-      <span class="triangle">&#9654;</span>
-    </summary>
-    <div class="slide-content">
-      <ul>
-        <li><strong>Cours de majeure :</strong> Chaînes de Markov, Martingales à temps discret, Modélisation statistique, Recherche opérationnelle, Optimisation différentielle, Méthode des éléments finis, Analyse fonctionnelle, Calcul scientifique en C++, Projet de modélisation d'une galaxie.</li>
-        <li><strong>Cours de mineure :</strong> Physique statistique, Physique des plasmas, Théorie spectrale des opérateurs auto-adjoints, Initiation au calcul haute performance, Automatique et commande des systèmes, Algèbre linéaire numérique.</li>
-      </ul>
-    </div>
-    </details>
-  * <details>
+<p><strong>ENSTA Paris</strong> – <em>Palaiseau, France (2023–2026)</em></p>
+
+<ul>
+  <li>
+    <strong>3<sup>e</sup> année</strong> : Programme d'Approfondissement en Physique Fondamentale à l'<strong>École Polytechnique</strong>
+  </li>
+
+  <li>
+    <details>
       <summary>
-        <strong>1<sup>e</sup> année</strong> : Tronc commun du cycle ingénieur ENSTA Paris 
+        <strong>2<sup>e</sup> année</strong> : Majeure en Mathématiques Appliquées
+        <span class="triangle">&#9654;</span>
+      </summary>
+      <div class="slide-content">
+        <ul>
+          <li><strong>Cours de majeure :</strong> Chaînes de Markov, Martingales à temps discret, Modélisation statistique, Recherche opérationnelle, Optimisation différentielle, Méthode des éléments finis, Analyse fonctionnelle, Calcul scientifique en C++, Projet de modélisation d'une galaxie.</li>
+          <li><strong>Cours de mineure :</strong> Physique statistique, Physique des plasmas, Théorie spectrale des opérateurs auto-adjoints, Initiation au calcul haute performance, Automatique et commande des systèmes, Algèbre linéaire numérique.</li>
+        </ul>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <details>
+      <summary>
+        <strong>1<sup>e</sup> année</strong> : Tronc commun du cycle ingénieur ENSTA Paris
         <span class="triangle">&#9654;</span>
       </summary>
       <div class="slide-content">
@@ -78,6 +76,9 @@ Education
         </ul>
       </div>
     </details>
+  </li>
+</ul>
+
 
 <script>
 // Version simple et directe
