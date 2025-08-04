@@ -83,6 +83,29 @@ details > summary:hover {
   padding: 2px 4px;
   margin: -2px -4px;
 }
+
+/* Amélioration des transitions pour les triangles */
+.triangle {
+  display: inline-block;
+  transition: transform 0.3s ease-in-out !important;
+  font-size: 1.0em;
+  margin-left: 5px;
+  transform-origin: center;
+}
+
+/* Style pour le contenu déroulant */
+.slide-content {
+  overflow: hidden;
+  transition: max-height 0.6s ease-in-out;
+}
+
+/* Hover effect pour les summary */
+details > summary:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+  padding: 2px 4px;
+  margin: -2px -4px;
+}
 </style>
 
 
