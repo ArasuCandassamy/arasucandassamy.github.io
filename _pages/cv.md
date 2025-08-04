@@ -35,10 +35,16 @@ document.querySelectorAll("details").forEach((detail) => {
 
 
 <style>
+<<<<<<< HEAD
 details summary {
   cursor: pointer;
   font-weight: bold;
   margin-top: 0.5em;
+=======
+details > summary {
+  list-style: none;
+  cursor: pointer;
+>>>>>>> 47c475b (Avancement du CV)
 }
 
 details summary .triangle {
@@ -61,11 +67,35 @@ details[open] summary .triangle {
   max-height: 0;
   overflow: hidden;
 }
+
+/* Amélioration des transitions pour les triangles */
+.triangle {
+  display: inline-block;
+  transition: transform 0.3s ease-in-out !important;
+  font-size: 1.0em;
+  margin-left: 5px;
+  transform-origin: center;
+}
+
+/* Style pour le contenu déroulant */
+.slide-content {
+  overflow: hidden;
+  transition: max-height 0.6s ease-in-out;
+}
+
+/* Hover effect pour les summary */
+details > summary:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+  padding: 2px 4px;
+  margin: -2px -4px;
+}
 </style>
 
 
 Education
 ======
+<<<<<<< HEAD
 <p><strong>ENSTA Paris</strong> – <em>Palaiseau, France (2023–2026)</em></p>
 
 <ul>
@@ -85,13 +115,32 @@ Education
           <li><strong>Cours de mineure :</strong> Physique statistique, Physique des plasmas, Théorie spectrale des opérateurs auto-adjoints, Initiation au calcul haute performance, Automatique et commande des systèmes, Algèbre linéaire numérique.</li>
         </ul>
       </div>
+=======
+* **ENSTA Paris** – _Palaiseau, France (2023-2026)_
+  * <strong>3<sup>e</sup> année</strong> : Programme d'Approfondissement en Physique Fondamentale à l'**École Polytechnique**
+  * <details>
+    <summary>
+      <strong>2<sup>e</sup> année</strong> : Majeure en Mathématiques Appliquées 
+      <span class="triangle">&#9654;</span>
+    </summary>
+    <div class="slide-content">
+      <ul>
+        <li><strong>Cours de majeure :</strong> Chaînes de Markov, Martingales à temps discret, Modélisation statistique, Recherche opérationnelle, Optimisation différentielle, Méthode des éléments finis, Analyse fonctionnelle, Calcul scientifique en C++, Projet de modélisation d'une galaxie.</li>
+        <li><strong>Cours de mineure :</strong> Physique statistique, Physique des plasmas, Théorie spectrale des opérateurs auto-adjoints, Initiation au calcul haute performance, Automatique et commande des systèmes, Algèbre linéaire numérique.</li>
+      </ul>
+    </div>
+>>>>>>> 47c475b (Avancement du CV)
     </details>
   </li>
 
   <li>
     <details>
       <summary>
+<<<<<<< HEAD
         <strong>1<sup>e</sup> année</strong> : Tronc commun du cycle ingénieur ENSTA Paris
+=======
+        <strong>1<sup>e</sup> année</strong> : Tronc commun du cycle ingénieur ENSTA Paris 
+>>>>>>> 47c475b (Avancement du CV)
         <span class="triangle">&#9654;</span>
       </summary>
       <div class="slide-content">
@@ -107,6 +156,7 @@ Education
 
 
 <script>
+<<<<<<< HEAD
 // Version simple et directe
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM loaded, initializing details animations...');
@@ -187,6 +237,63 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     console.log('Details animations initialized successfully');
+=======
+document.addEventListener('DOMContentLoaded', function() {
+    // Add event listeners to all details elements
+    document.querySelectorAll('details').forEach(function(details) {
+        var summary = details.querySelector('summary');
+        var triangle = summary.querySelector('.triangle');
+        var content = details.querySelector('.slide-content');
+        
+        // Initialize state only if content exists
+        if (content) {
+            if (details.open) {
+                content.style.maxHeight = content.scrollHeight + "px";
+            } else {
+                content.style.maxHeight = "0px";
+            }
+        }
+        
+        // Initialize triangle rotation
+        if (triangle) {
+            triangle.style.transform = details.open ? 'rotate(90deg)' : 'rotate(0deg)';
+        }
+        
+        // Handle click on summary to control the animation manually
+        summary.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default details behavior
+            
+            if (details.open) {
+                // Currently open, we want to close it with animation
+                if (content) {
+                    content.style.maxHeight = "0px";
+                }
+                if (triangle) {
+                    triangle.style.transform = 'rotate(0deg)';
+                }
+                
+                // Close the details after animation completes
+                setTimeout(function() {
+                    details.removeAttribute('open');
+                }, 600); // Match the CSS transition duration
+                
+            } else {
+                // Currently closed, we want to open it
+                details.setAttribute('open', '');
+                
+                // Force a reflow to ensure the open state is applied
+                details.offsetHeight;
+                
+                if (content) {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+                if (triangle) {
+                    triangle.style.transform = 'rotate(90deg)';
+                }
+            }
+        });
+    });
+>>>>>>> 47c475b (Avancement du CV)
 });
 </script>
 
