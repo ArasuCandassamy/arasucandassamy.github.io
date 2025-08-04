@@ -234,3 +234,40 @@
   }
 }
 
+/* Details Animation Styles */
+details > summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+details > summary::marker {
+  display: none;
+}
+
+/* Triangle animation */
+.triangle {
+  display: inline-block;
+  transition: transform 0.3s ease-in-out;
+  font-size: 1.0em;
+  margin-left: 5px;
+  color: black
+}
+
+/* Slide content animation */
+.slide-content {
+  overflow: hidden;
+  transition: max-height 0.6s ease-in-out;
+}
+
+/* Hover effect pour les summary */
+details > summary:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+  padding: 2px 4px;
+  margin: -2px -4px;
+}
+

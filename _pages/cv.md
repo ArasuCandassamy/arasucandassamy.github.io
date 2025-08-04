@@ -10,41 +10,41 @@ redirect_from:
 <link rel="stylesheet" href="{{ '/assets/css/cv-style.css' | relative_url }}">
 
 <style>
+/* Ensure details animations work */
 details > summary {
-  list-style: none;
+  list-style: none !important;
   cursor: pointer;
 }
 
 details > summary::-webkit-details-marker {
-  display: none;
+  display: none !important;
 }
 
 details > summary::marker {
-  display: none;
+display: none !important;
 }
 
-/* Amélioration des transitions pour les triangles */
 .triangle {
-  display: inline-block;
+  display: inline-block !important;
   transition: transform 0.3s ease-in-out !important;
-  font-size: 1.0em;
-  margin-left: 5px;
-  transform-origin: center;
+  font-size: 1.0em !important;
+  margin-left: 5px !important;
+  transform-origin: center !important;
+  color: #666 !important;
 }
 
-/* Style pour le contenu déroulant */
 .slide-content {
-  overflow: hidden;
-  transition: max-height 0.6s ease-in-out;
+  overflow: hidden !important;
+  transition: max-height 0.6s ease-in-out !important;
 }
 
-/* Hover effect pour les summary */
 details > summary:hover {
   background-color: rgba(0, 0, 0, 0.05);
   border-radius: 3px;
   padding: 2px 4px;
   margin: -2px -4px;
 }
+
 </style>
 
 {% include base_path %}
@@ -80,61 +80,86 @@ Education
     </details>
 
 <script>
+// Version simple et directe
 document.addEventListener('DOMContentLoaded', function() {
-    // Add event listeners to all details elements
-    document.querySelectorAll('details').forEach(function(details) {
+    console.log('DOM loaded, initializing details animations...');
+    
+    var allDetails = document.querySelectorAll('details');
+    console.log('Found', allDetails.length, 'details elements');
+    
+    allDetails.forEach(function(details, index) {
+        console.log('Processing details', index);
+        
         var summary = details.querySelector('summary');
-        var triangle = summary.querySelector('.triangle');
+        var triangle = summary ? summary.querySelector('.triangle') : null;
         var content = details.querySelector('.slide-content');
         
-        // Initialize state only if content exists
+        if (!summary) {
+            console.log('No summary found for details', index);
+            return;
+        }
+        
+        console.log('Details', index, 'has triangle:', !!triangle, 'has content:', !!content);
+        
+        // Initialize state
         if (content) {
-            if (details.open) {
-                content.style.maxHeight = content.scrollHeight + "px";
-            } else {
-                content.style.maxHeight = "0px";
-            }
+            content.style.maxHeight = details.hasAttribute('open') ? content.scrollHeight + "px" : "0px";
+            console.log('Set initial maxHeight for details', index, ':', content.style.maxHeight);
         }
         
-        // Initialize triangle rotation
         if (triangle) {
-            triangle.style.transform = details.open ? 'rotate(90deg)' : 'rotate(0deg)';
+            triangle.style.transform = details.hasAttribute('open') ? 'rotate(90deg)' : 'rotate(0deg)';
+            console.log('Set initial triangle rotation for details', index, ':', triangle.style.transform);
         }
         
-        // Handle click on summary to control the animation manually
+        // Add click handler
         summary.addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent default details behavior
+            event.preventDefault();
+            console.log('Clicked on details', index);
             
-            if (details.open) {
-                // Currently open, we want to close it with animation
+            var isOpen = details.hasAttribute('open');
+            console.log('Current state - isOpen:', isOpen);
+            
+            if (isOpen) {
+                // Closing
+                console.log('Closing details', index);
                 if (content) {
                     content.style.maxHeight = "0px";
+                    console.log('Set maxHeight to 0px');
                 }
                 if (triangle) {
                     triangle.style.transform = 'rotate(0deg)';
+                    console.log('Set triangle to 0deg');
                 }
                 
-                // Close the details after animation completes
                 setTimeout(function() {
                     details.removeAttribute('open');
-                }, 600); // Match the CSS transition duration
-                
+                    console.log('Removed open attribute for details', index);
+                }, 600);
             } else {
-                // Currently closed, we want to open it
+                // Opening
+                console.log('Opening details', index);
                 details.setAttribute('open', '');
                 
-                // Force a reflow to ensure the open state is applied
+                // Force reflow
                 details.offsetHeight;
                 
                 if (content) {
-                    content.style.maxHeight = content.scrollHeight + "px";
+                    var newHeight = content.scrollHeight + "px";
+                    content.style.maxHeight = newHeight;
+                    console.log('Set maxHeight to', newHeight);
                 }
                 if (triangle) {
                     triangle.style.transform = 'rotate(90deg)';
+                    console.log('Set triangle to 90deg');
                 }
             }
         });
+        
+        console.log('Added click handler for details', index);
     });
+    
+    console.log('Details animations initialized successfully');
 });
 </script>
 
