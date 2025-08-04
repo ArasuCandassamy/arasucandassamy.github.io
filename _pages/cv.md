@@ -11,6 +11,28 @@ redirect_from:
 
 {% include base_path %}
 
+<script>
+document.querySelectorAll("details").forEach((detail) => {
+  const content = detail.querySelector(".slide-content");
+  if (!content) return;
+
+  content.style.overflow = "hidden";
+  content.style.transition = "max-height 0.3s ease, opacity 0.3s ease";
+  content.style.maxHeight = "0";
+  content.style.opacity = "0";
+
+  detail.addEventListener("toggle", () => {
+    if (detail.open) {
+      content.style.maxHeight = content.scrollHeight + "px";
+      content.style.opacity = "1";
+    } else {
+      content.style.maxHeight = "0";
+      content.style.opacity = "0";
+    }
+  });
+});
+</script>
+
 
 <style>
 details summary {
@@ -31,13 +53,17 @@ details[open] summary .triangle {
 }
 
 .slide-content {
-  padding: 0.5em 1em;
+  padding: 0 1em;
+  margin-top: 0.5em;
   background-color: #f9f9f9;
   border-left: 3px solid #ccc;
-  margin-top: 0.5em;
   border-radius: 4px;
+  max-height: 0;
+  overflow: hidden;
 }
 </style>
+
+
 Education
 ======
 <p><strong>ENSTA Paris</strong> – <em>Palaiseau, France (2023–2026)</em></p>
