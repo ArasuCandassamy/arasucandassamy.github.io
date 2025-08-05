@@ -35,16 +35,9 @@ document.querySelectorAll("details").forEach((detail) => {
 
 
 <style>
-<<<<<<< HEAD
-details summary {
-  cursor: pointer;
-  font-weight: bold;
-  margin-top: 0.5em;
-=======
 details > summary {
   list-style: none;
   cursor: pointer;
->>>>>>> 47c475b (Avancement du CV)
 }
 
 details summary .triangle {
@@ -95,27 +88,6 @@ details > summary:hover {
 
 Education
 ======
-<<<<<<< HEAD
-<p><strong>ENSTA Paris</strong> – <em>Palaiseau, France (2023–2026)</em></p>
-
-<ul>
-  <li>
-    <strong>3<sup>e</sup> année</strong> : Programme d'Approfondissement en Physique Fondamentale à l'<strong>École Polytechnique</strong>
-  </li>
-
-  <li>
-    <details>
-      <summary>
-        <strong>2<sup>e</sup> année</strong> : Majeure en Mathématiques Appliquées
-        <span class="triangle">&#9654;</span>
-      </summary>
-      <div class="slide-content">
-        <ul>
-          <li><strong>Cours de majeure :</strong> Chaînes de Markov, Martingales à temps discret, Modélisation statistique, Recherche opérationnelle, Optimisation différentielle, Méthode des éléments finis, Analyse fonctionnelle, Calcul scientifique en C++, Projet de modélisation d'une galaxie.</li>
-          <li><strong>Cours de mineure :</strong> Physique statistique, Physique des plasmas, Théorie spectrale des opérateurs auto-adjoints, Initiation au calcul haute performance, Automatique et commande des systèmes, Algèbre linéaire numérique.</li>
-        </ul>
-      </div>
-=======
 * **ENSTA Paris** – _Palaiseau, France (2023-2026)_
   * <strong>3<sup>e</sup> année</strong> : Programme d'Approfondissement en Physique Fondamentale à l'**École Polytechnique**
   * <details>
@@ -126,21 +98,14 @@ Education
     <div class="slide-content">
       <ul>
         <li><strong>Cours de majeure :</strong> Chaînes de Markov, Martingales à temps discret, Modélisation statistique, Recherche opérationnelle, Optimisation différentielle, Méthode des éléments finis, Analyse fonctionnelle, Calcul scientifique en C++, Projet de modélisation d'une galaxie.</li>
-        <li><strong>Cours de mineure :</strong> Physique statistique, Physique des plasmas, Théorie spectrale des opérateurs auto-adjoints, Initiation au calcul haute performance, Automatique et commande des systèmes, Algèbre linéaire numérique.</li>
+        <li><strong>Cours de mineure :</strong> Physique statistique, Physique des plasmas, Théorie spectrale des opérateurs auto-adjoints, Initiation au calcul haute performance, Automatique et commande des systèmes, Algèbre linéaire numérique.
       </ul>
     </div>
->>>>>>> 47c475b (Avancement du CV)
     </details>
-  </li>
 
-  <li>
-    <details>
+   * <details>
       <summary>
-<<<<<<< HEAD
-        <strong>1<sup>e</sup> année</strong> : Tronc commun du cycle ingénieur ENSTA Paris
-=======
         <strong>1<sup>e</sup> année</strong> : Tronc commun du cycle ingénieur ENSTA Paris 
->>>>>>> 47c475b (Avancement du CV)
         <span class="triangle">&#9654;</span>
       </summary>
       <div class="slide-content">
@@ -150,94 +115,9 @@ Education
           <li><strong>Cours d'informatique et projets :</strong> Algorithmique, Programmation en C et Matlab ; Projet de programmation : Méthode des éléments finis en Matlab ; Projet de programmation : Jeu d'échecs en C.</li>
         </ul>
       </div>
-    </details>
-  </li>
-</ul>
 
 
 <script>
-<<<<<<< HEAD
-// Version simple et directe
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded, initializing details animations...');
-    
-    var allDetails = document.querySelectorAll('details');
-    console.log('Found', allDetails.length, 'details elements');
-    
-    allDetails.forEach(function(details, index) {
-        console.log('Processing details', index);
-        
-        var summary = details.querySelector('summary');
-        var triangle = summary ? summary.querySelector('.triangle') : null;
-        var content = details.querySelector('.slide-content');
-        
-        if (!summary) {
-            console.log('No summary found for details', index);
-            return;
-        }
-        
-        console.log('Details', index, 'has triangle:', !!triangle, 'has content:', !!content);
-        
-        // Initialize state
-        if (content) {
-            content.style.maxHeight = details.hasAttribute('open') ? content.scrollHeight + "px" : "0px";
-            console.log('Set initial maxHeight for details', index, ':', content.style.maxHeight);
-        }
-        
-        if (triangle) {
-            triangle.style.transform = details.hasAttribute('open') ? 'rotate(90deg)' : 'rotate(0deg)';
-            console.log('Set initial triangle rotation for details', index, ':', triangle.style.transform);
-        }
-        
-        // Add click handler
-        summary.addEventListener('click', function(event) {
-            event.preventDefault();
-            console.log('Clicked on details', index);
-            
-            var isOpen = details.hasAttribute('open');
-            console.log('Current state - isOpen:', isOpen);
-            
-            if (isOpen) {
-                // Closing
-                console.log('Closing details', index);
-                if (content) {
-                    content.style.maxHeight = "0px";
-                    console.log('Set maxHeight to 0px');
-                }
-                if (triangle) {
-                    triangle.style.transform = 'rotate(0deg)';
-                    console.log('Set triangle to 0deg');
-                }
-                
-                setTimeout(function() {
-                    details.removeAttribute('open');
-                    console.log('Removed open attribute for details', index);
-                }, 600);
-            } else {
-                // Opening
-                console.log('Opening details', index);
-                details.setAttribute('open', '');
-                
-                // Force reflow
-                details.offsetHeight;
-                
-                if (content) {
-                    var newHeight = content.scrollHeight + "px";
-                    content.style.maxHeight = newHeight;
-                    console.log('Set maxHeight to', newHeight);
-                }
-                if (triangle) {
-                    triangle.style.transform = 'rotate(90deg)';
-                    console.log('Set triangle to 90deg');
-                }
-            }
-        });
-        
-        console.log('Added click handler for details', index);
-    });
-    
-    console.log('Details animations initialized successfully');
-=======
 document.addEventListener('DOMContentLoaded', function() {
     // Add event listeners to all details elements
     document.querySelectorAll('details').forEach(function(details) {
@@ -293,7 +173,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
->>>>>>> 47c475b (Avancement du CV)
 });
 </script>
 
