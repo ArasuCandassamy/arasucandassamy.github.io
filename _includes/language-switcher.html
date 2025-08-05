@@ -11,43 +11,20 @@ Determine current language and create appropriate links
 {% assign other_lang = "en" %}
 {% assign target_url = "" %}
 
+{% assign other_lang = current_lang == "en" ? "fr" : "en" %}
 {% if current_lang == "en" %}
-  {% assign other_lang = "fr" %}
-  {% comment %}Convert English URL to French{% endcomment %}
-  {% if page.url == "/en/" %}
-    {% assign target_url = "/" %}
-  {% elsif page.url == "/en/cv/" %}
-    {% assign target_url = "/cv/" %}
-  {% elsif page.url == "/en/about/" %}
-    {% assign target_url = "/about/" %}
-  {% elsif page.url == "/en/teaching/" %}
-    {% assign target_url = "/teaching/" %}
-  {% else %}
-    {% assign target_url = page.url | replace: "/en/", "/" %}
-  {% endif %}
+    {% assign target_url = page.url | replace_first: "/en/", "/" %}
 {% else %}
-  {% assign other_lang = "en" %}
-  {% comment %}Convert French URL to English{% endcomment %}
-  {% if page.url == "/" %}
-    {% assign target_url = "/en/" %}
-  {% elsif page.url == "/cv/" %}
-    {% assign target_url = "/en/cv/" %}
-  {% elsif page.url == "/about/" %}
-    {% assign target_url = "/en/about/" %}
-  {% elsif page.url == "/teaching/" %}
-    {% assign target_url = "/en/teaching/" %}
-  {% else %}
     {% assign target_url = "/en" | append: page.url %}
-  {% endif %}
 {% endif %}
 
 {% assign languages = site.data.languages %}
 
 <div class="language-switcher">
-  <a href="{{ target_url | relative_url }}" class="language-btn">
-    <span class="flag">{{ languages.languages[other_lang].flag }}</span>
-    <span class="lang-name">{{ languages.languages[other_lang].name }}</span>
-  </a>
+    <a href="{{ target_url | relative_url }}" class="language-btn">
+        <span class="flag">{{ languages.languages[other_lang].flag }}</span>
+        <span class="lang-name">{{ languages.languages[other_lang].name }}</span>
+    </a>
 </div>
 
 <style>
