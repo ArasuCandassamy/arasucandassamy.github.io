@@ -1,0 +1,113 @@
+{% assign current_lang = page.lang | default: site.default_lang | default: "fr" %}
+{% assign other_lang = "en" %}
+{% if current_lang == "en" %}
+  {% assign other_lang = "fr" %}
+{% endif %}
+{% assign languages = site.data.languages %}
+
+<div class="language-switcher">
+  <button id="language-toggle" class="language-btn" onclick="toggleLanguage()">
+    <span class="flag">{{ languages.languages[other_lang].flag }}</span>
+    <span class="lang-name">{{ languages.languages[other_lang].name }}</span>
+  </button>
+</div>
+
+<style>
+.language-switcher {
+  position: fixed;
+  top: 12px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.language-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--global-bg-color, #fff);
+  border: 2px solid var(--global-border-color, #ddd);
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--global-text-color, #333);
+}
+
+.language-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  border-color: var(--global-link-color, #52adc8);
+}
+
+.flag {
+  font-size: 16px;
+}
+
+.lang-name {
+  min-width: 60px;
+  text-align: left;
+}
+
+/* Dark mode styles */
+html[data-theme="dark"] .language-btn {
+  background: var(--global-bg-color, #333);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: var(--global-text-color, #fff);
+}
+
+html[data-theme="dark"] .language-btn:hover {
+  border-color: var(--global-link-color, #52adc8);
+  background: rgba(255, 255, 255, 0.05);
+}
+</style>
+
+<script>
+function toggleLanguage() {
+  const currentPath = window.location.pathname;
+  let newPath;
+  
+  // Define page mappings between languages
+  const pageMap = {
+    fr_to_en: {
+      '/fr/': '/en/',
+    },
+    en_to_fr: {
+      '/en/': '/fr/',
+    }
+  };
+  
+  // Determine current language and target path
+  if (currentPath.startsWith('/en/')) {
+    // Currently on English, switch to French
+    newPath = pageMap.en_to_fr[currentPath] || currentPath.replace(/^\/en\//, '/');
+  } else {
+    // Currently on French, switch to English
+    newPath = pageMap.fr_to_en[currentPath] || '/en' + currentPath;
+  }
+  
+  // Store language preference
+  const newLang = currentPath.startsWith('/en/') ? 'fr' : 'en';
+  localStorage.setItem('preferred-language', newLang);
+  
+  // Navigate to new language version
+  window.location.href = newPath;
+}
+
+// Set initial language from localStorage on page load (disabled to prevent loops)
+document.addEventListener('DOMContentLoaded', function() {
+  // Comment out automatic redirection to prevent infinite loops
+  // const savedLang = localStorage.getItem('preferred-language');
+  // const currentPath = window.location.pathname;
+  // const isOnEnglish = currentPath.startsWith('/en/');
+  // const isOnFrench = !isOnEnglish;
+  
+  // if (savedLang === 'en' && isOnFrench) {
+  //   toggleLanguage();
+  // } else if (savedLang === 'fr' && isOnEnglish) {
+  //   toggleLanguage();
+  // }
+});
+</script>

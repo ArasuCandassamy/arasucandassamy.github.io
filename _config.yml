@@ -8,14 +8,21 @@
 
 # Basic Site Settings
 locale                   : "fr-FR"
+default_lang             : "fr"
 site_theme               : "default"
 title                    : "Arasu Candassamy"
 title_separator          : "-"
 name                     : &name "Arasu Candassamy"
-description              : &description "personal description"
+description_fr           : "Site académique d'Arasu Candassamy, étudiant en physique fondamentale"
+description_en           : "Academic website of Arasu Candassamy, fundamental physics student"
+description              : &description "Site académique d'Arasu Candassamy"
 url                      : https://arasucandassamy.github.io # the base hostname & protocol for your site e.g. "https://[your GitHub username].github.io" or if you already have some other page hosted on Github then use "https://[your GitHub username].github.io/[Your Repo Name]"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "academicpages/academicpages.github.io"
+
+# Multilingual settings
+languages: ["fr", "en"]
+exclude_from_localizations: ["javascript", "images", "css", "files"]
 
 # Site Author - The following control what appear as part of the author content on the side bar.
 #               If a field is blank the icon and link will not appear, otherwise it will be shown.
@@ -24,8 +31,7 @@ author:
   # Biographic information
   avatar           : "arasu.jpeg"
   name             : "Arasu Candassamy"
-  pronouns         : # example: "she/her"  
-  bio              : "Etudiant en 3e année à ENSTA Paris"
+  pronouns         : # example: "she/her"
   location         : "Palaiseau, France"
   employer         : # "Red Brick University"
   uri              : # URL

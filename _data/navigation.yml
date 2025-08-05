@@ -1,22 +1,18 @@
-# The following is the order of the links in the header of the website.
-#
-# Changing the order here will adjust the order and you can also add additional
-# links. Removing a link prevents it from showing in the header, but does not
-# prevent it from being included in the site.
-#
-# NOTE that only one of the CV options should be selected, the first is for the
-#      Markdown formatted page while the second is generated using JSON.
-
+# Navigation configuration for multilingual site
+# French navigation (default)
 main:
+  # - title: "À propos"
+  #   url: /about/
+
   # - title: "Publications"
   #   url: /publications/
 
   # - title: "Talks"
-  #   url: /talks/    
+  #   url: /talks/
 
-  - title: "Teaching"
-    url: /teaching/    
-    
+  - title: "Enseignement"
+    url: /teaching/
+
   # - title: "Portfolio"
   #   url: /portfolio/
         
@@ -25,9 +21,38 @@ main:
     
   - title: "CV"
     url: /cv/
-    
+
   # - title: "CV"
   #   url: /cv-json/
-    
+
   # - title: "Guide"
   #   url: /markdown/
+
+# English navigation
+main-en:
+  # - title: "About"
+  #   url: /en/about/
+
+  # - title: "Publications"
+  #   url: /en/publications/
+
+  # - title: "Talks"
+  #   url: /en/talks/    
+
+  - title: "Teaching"
+    url: /en/teaching/    
+    
+  # - title: "Portfolio"
+  #   url: /en/portfolio/
+        
+  # - title: "Blog Posts"
+  #   url: /en/year-archive/
+    
+  - title: "CV"
+    url: /en/cv/
+    
+  # - title: "CV"
+  #   url: /en/cv-json/
+    
+  # - title: "Guide"
+  #   url: /en/markdown/

@@ -1,0 +1,62 @@
+# Language configuration
+languages:
+  fr:
+    name: "Français"
+    flag: "🇫🇷"
+    locale: "fr-FR"
+    default: true
+  en:
+    name: "English"
+    flag: "🇬🇧"
+    locale: "en-US"
+
+# Navigation translations
+nav:
+  fr:
+    home: "Accueil"
+    about: "À propos"
+    cv: "CV"
+    teaching: "Enseignement"
+    publications: "Publications"
+    talks: "Conférences"
+    portfolio: "Portfolio"
+    blog: "Blog"
+    language_switch: "Changer de langue"
+  en:
+    home: "Home"
+    about: "About"
+    cv: "CV"
+    teaching: "Teaching"
+    publications: "Publications"
+    talks: "Talks"
+    portfolio: "Portfolio"
+    blog: "Blog"
+    language_switch: "Switch language"
+
+# Common translations
+labels:
+  fr:
+    read_more: "Lire la suite"
+    updated: "Dernière mise à jour"
+    published: "Publié"
+    download_cv: "Télécharger le CV en PDF"
+    email: "Email"
+    location: "Localisation"
+    follow: "Suivre"
+    website: "Site web"
+  en:
+    read_more: "Read more"
+    updated: "Last updated"
+    published: "Published"
+    download_cv: "Download CV as PDF"
+    email: "Email"
+    location: "Location"
+    follow: "Follow"
+    website: "Website"
+
+# Author bio translations (fallback)
+author:
+  fr:
+    bio: "Étudiant en 3e année à ENSTA Paris"
+  en:
+    bio: "3rd year student at ENSTA Paris"

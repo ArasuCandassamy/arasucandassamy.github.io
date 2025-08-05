@@ -3,8 +3,10 @@ layout: archive
 title: "CV"
 permalink: /cv/
 author_profile: true
+lang: fr
 redirect_from:
   - /resume
+  - /fr/cv/
 ---
 
 {% include base_path %}
@@ -31,8 +33,6 @@ details > summary::marker {
   margin-left: 5px;
   transition: transform 0.3s ease;
   transform-origin: center;
-  /* color: var(--global-link-color, #00e72aff); */
-  /* color: var(#00e72aff); */
 }
 
 details[open] .triangle {
