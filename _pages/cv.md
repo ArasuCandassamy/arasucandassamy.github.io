@@ -10,11 +10,12 @@ redirect_from:
 {% include base_path %}
 
 <style>
-/* Clean and simple styles for details animations */
+/* Clean and simple styles for details animations - Compatible with dark/light mode */
 details > summary {
   list-style: none;
   cursor: pointer;
   position: relative;
+  color: var(--global-text-color, #333);
 }
 
 details > summary::-webkit-details-marker {
@@ -30,6 +31,8 @@ details > summary::marker {
   margin-left: 5px;
   transition: transform 0.3s ease;
   transform-origin: center;
+  /* color: var(--global-link-color, #00e72aff); */
+  /* color: var(#00e72aff); */
 }
 
 details[open] .triangle {
@@ -40,10 +43,23 @@ details[open] .triangle {
   overflow: hidden;
   max-height: 0;
   transition: max-height 0.5s ease-out;
-  background-color: #f9f9f9;
-  border-left: 3px solid #ddd;
+  background-color: var(--global-bg-color, #f9f9f9);
+  border-left: 3px solid var(--global-border-color, #ddd);
   border-radius: 0 4px 4px 0;
   margin: 0.5em 0;
+  color: var(--global-text-color, #333);
+}
+
+/* Light mode specific styles */
+:root .slide-content {
+  background-color: #f9f9f9;
+  border-left-color: #ddd;
+}
+
+/* Dark mode specific styles */
+html[data-theme="dark"] .slide-content {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-left-color: rgba(255, 255, 255, 0.2);
 }
 
 details[open] .slide-content {
@@ -52,10 +68,16 @@ details[open] .slide-content {
 }
 
 details > summary:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: var(--global-border-color, rgba(0, 0, 0, 0.05));
   border-radius: 3px;
   padding: 2px 4px;
   margin: -2px -4px;
+  transition: background-color 0.2s ease;
+}
+
+/* Dark mode hover effect */
+html[data-theme="dark"] details > summary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 </style>
 
@@ -75,7 +97,6 @@ Education
         <li><strong>Cours de mineure :</strong> Physique statistique, Physique des plasmas, Théorie spectrale des opérateurs auto-adjoints, Initiation au calcul haute performance, Automatique et commande des systèmes, Algèbre linéaire numérique.</li>
       </ul>
     </div>
-    </details>
 
    * <details>
       <summary>
@@ -90,65 +111,6 @@ Education
         </ul>
       </div>
 
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Add event listeners to all details elements
-    document.querySelectorAll('details').forEach(function(details) {
-        var summary = details.querySelector('summary');
-        var triangle = summary.querySelector('.triangle');
-        var content = details.querySelector('.slide-content');
-        
-        // Initialize state only if content exists
-        if (content) {
-            if (details.open) {
-                content.style.maxHeight = content.scrollHeight + "px";
-            } else {
-                content.style.maxHeight = "0px";
-            }
-        }
-        
-        // Initialize triangle rotation
-        if (triangle) {
-            triangle.style.transform = details.open ? 'rotate(90deg)' : 'rotate(0deg)';
-        }
-        
-        // Handle click on summary to control the animation manually
-        summary.addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent default details behavior
-            
-            if (details.open) {
-                // Currently open, we want to close it with animation
-                if (content) {
-                    content.style.maxHeight = "0px";
-                }
-                if (triangle) {
-                    triangle.style.transform = 'rotate(0deg)';
-                }
-                
-                // Close the details after animation completes
-                setTimeout(function() {
-                    details.removeAttribute('open');
-                }, 600); // Match the CSS transition duration
-                
-            } else {
-                // Currently closed, we want to open it
-                details.setAttribute('open', '');
-                
-                // Force a reflow to ensure the open state is applied
-                details.offsetHeight;
-                
-                if (content) {
-                    content.style.maxHeight = content.scrollHeight + "px";
-                }
-                if (triangle) {
-                    triangle.style.transform = 'rotate(90deg)';
-                }
-            }
-        });
-    });
-});
-</script>
 
 * **Classe préparatoire aux grandes écoles** - _Lycée Blaise Pascal, Orsay, France (2021-2023)_
   * **1e année** : MPSI (Mathématiques, Physique et Sciences de l'Ingénieur)
