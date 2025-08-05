@@ -7,99 +7,50 @@ redirect_from:
   - /resume
 ---
 
-<link rel="stylesheet" href="{{ '/assets/css/cv-style.css' | relative_url }}">
-
 {% include base_path %}
 
-<script>
-document.querySelectorAll("details").forEach((detail) => {
-  const content = detail.querySelector(".slide-content");
-  if (!content) return;
-
-  content.style.overflow = "hidden";
-  content.style.transition = "max-height 0.3s ease, opacity 0.3s ease";
-  content.style.maxHeight = "0";
-  content.style.opacity = "0";
-
-  detail.addEventListener("toggle", () => {
-    if (detail.open) {
-      content.style.maxHeight = content.scrollHeight + "px";
-      content.style.opacity = "1";
-    } else {
-      content.style.maxHeight = "0";
-      content.style.opacity = "0";
-    }
-  });
-});
-</script>
-
-
 <style>
+/* Clean and simple styles for details animations */
 details > summary {
   list-style: none;
   cursor: pointer;
+  position: relative;
 }
 
-details summary .triangle {
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+details > summary::marker {
+  display: none;
+}
+
+.triangle {
   display: inline-block;
-  transform: rotate(0deg);
-  transition: transform 0.2s ease;
   margin-left: 5px;
+  transition: transform 0.3s ease;
+  transform-origin: center;
 }
 
-details[open] summary .triangle {
+details[open] .triangle {
   transform: rotate(90deg);
 }
 
 .slide-content {
-  padding: 0 1em;
-  margin-top: 0.5em;
-  background-color: #f9f9f9;
-  border-left: 3px solid #ccc;
-  border-radius: 4px;
+  overflow: hidden;
   max-height: 0;
-  overflow: hidden;
+  transition: max-height 0.5s ease-out;
+  background-color: #f9f9f9;
+  border-left: 3px solid #ddd;
+  border-radius: 0 4px 4px 0;
+  margin: 0.5em 0;
 }
 
-/* Amélioration des transitions pour les triangles */
-.triangle {
-  display: inline-block;
-  transition: transform 0.3s ease-in-out !important;
-  font-size: 1.0em;
-  margin-left: 5px;
-  transform-origin: center;
+details[open] .slide-content {
+  max-height: 1000px; /* Large enough value */
+  padding: 0.5em 1em;
 }
 
-/* Style pour le contenu déroulant */
-.slide-content {
-  overflow: hidden;
-  transition: max-height 0.6s ease-in-out;
-}
-
-/* Hover effect pour les summary */
-details > summary:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-  border-radius: 3px;
-  padding: 2px 4px;
-  margin: -2px -4px;
-}
-
-/* Amélioration des transitions pour les triangles */
-.triangle {
-  display: inline-block;
-  transition: transform 0.3s ease-in-out !important;
-  font-size: 1.0em;
-  margin-left: 5px;
-  transform-origin: center;
-}
-
-/* Style pour le contenu déroulant */
-.slide-content {
-  overflow: hidden;
-  transition: max-height 0.6s ease-in-out;
-}
-
-/* Hover effect pour les summary */
 details > summary:hover {
   background-color: rgba(0, 0, 0, 0.05);
   border-radius: 3px;
@@ -121,7 +72,7 @@ Education
     <div class="slide-content">
       <ul>
         <li><strong>Cours de majeure :</strong> Chaînes de Markov, Martingales à temps discret, Modélisation statistique, Recherche opérationnelle, Optimisation différentielle, Méthode des éléments finis, Analyse fonctionnelle, Calcul scientifique en C++, Projet de modélisation d'une galaxie.</li>
-        <li><strong>Cours de mineure :</strong> Physique statistique, Physique des plasmas, Théorie spectrale des opérateurs auto-adjoints, Initiation au calcul haute performance, Automatique et commande des systèmes, Algèbre linéaire numérique.
+        <li><strong>Cours de mineure :</strong> Physique statistique, Physique des plasmas, Théorie spectrale des opérateurs auto-adjoints, Initiation au calcul haute performance, Automatique et commande des systèmes, Algèbre linéaire numérique.</li>
       </ul>
     </div>
     </details>
