@@ -1,4 +1,12 @@
+{% comment %}
+Determine current language from page.lang or URL path (same logic as other components)
+{% endcomment %}
 {% assign current_lang = page.lang | default: site.default_lang | default: "fr" %}
+{% comment %}Fallback: detect language from URL if page.lang is not set{% endcomment %}
+{% if page.url contains '/en/' %}
+  {% assign current_lang = "en" %}
+{% endif %}
+
 {% assign other_lang = "en" %}
 {% if current_lang == "en" %}
   {% assign other_lang = "fr" %}
@@ -65,63 +73,60 @@ html[data-theme="dark"] .language-btn:hover {
 </style>
 
 <script>
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
   'use strict';
   
-  function toggleLanguage() {
-    const currentPath = window.location.pathname;
-    let newPath;
-    
-    // Define page mappings between languages
-    const pageMap = {
-      fr_to_en: {
-        '/': '/en/',
-        '/cv/': '/en/cv/',
-        '/about/': '/en/about/',
-        '/teaching/': '/en/teaching/'
-      },
-      en_to_fr: {
-        '/en/': '/',
-        '/en/cv/': '/cv/',
-        '/en/about/': '/about/',
-        '/en/teaching/': '/teaching/'
+  var languageToggle = document.getElementById('language-toggle');
+  if (!languageToggle) return;
+  
+  languageToggle.addEventListener('click', function() {
+    try {
+      var currentPath = window.location.pathname;
+      var newPath = '';
+      
+      // Simple mapping logic
+      if (currentPath.startsWith('/en/')) {
+        // English to French
+        if (currentPath === '/en/') {
+          newPath = '/';
+        } else if (currentPath === '/en/cv/') {
+          newPath = '/cv/';
+        } else if (currentPath === '/en/about/') {
+          newPath = '/about/';
+        } else if (currentPath === '/en/teaching/') {
+          newPath = '/teaching/';
+        } else {
+          newPath = currentPath.replace(/^\/en\//, '/');
+        }
+      } else {
+        // French to English
+        if (currentPath === '/') {
+          newPath = '/en/';
+        } else if (currentPath === '/cv/') {
+          newPath = '/en/cv/';
+        } else if (currentPath === '/about/') {
+          newPath = '/en/about/';
+        } else if (currentPath === '/teaching/') {
+          newPath = '/en/teaching/';
+        } else {
+          newPath = '/en' + currentPath;
+        }
       }
-    };
-    
-    // Determine current language and target path
-    if (currentPath.startsWith('/en/')) {
-      // Currently on English, switch to French
-      newPath = pageMap.en_to_fr[currentPath] || currentPath.replace(/^\/en\//, '/');
-    } else {
-      // Currently on French, switch to English
-      newPath = pageMap.fr_to_en[currentPath] || '/en' + currentPath;
-    }
-    
-    // Store language preference
-    const newLang = currentPath.startsWith('/en/') ? 'fr' : 'en';
-    localStorage.setItem('preferred-language', newLang);
-    
-    // Navigate to new language version
-    window.location.href = newPath;
-  }
-
-  // Set up event listener when DOM is ready
-  document.addEventListener('DOMContentLoaded', function() {
-    const languageToggle = document.getElementById('language-toggle');
-    if (languageToggle) {
-      languageToggle.addEventListener('click', toggleLanguage);
+      
+      // Store preference
+      var newLang = currentPath.startsWith('/en/') ? 'fr' : 'en';
+      try {
+        localStorage.setItem('preferred-language', newLang);
+      } catch(e) {
+        // Ignore localStorage errors
+      }
+      
+      // Navigate
+      window.location.href = newPath;
+      
+    } catch(error) {
+      console.error('Language toggle error:', error);
     }
   });
-  
-  // Fallback: if DOM is already loaded
-  if (document.readyState === 'loading') {
-    // DOM is still loading
-  } else {
-    // DOM is already loaded
-    const languageToggle = document.getElementById('language-toggle');
-    if (languageToggle) {
-      languageToggle.addEventListener('click', toggleLanguage);
-    }
-  }
-})();
+});
 </script>
