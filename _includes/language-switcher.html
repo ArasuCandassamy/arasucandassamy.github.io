@@ -6,7 +6,7 @@
 {% assign languages = site.data.languages %}
 
 <div class="language-switcher">
-  <button id="language-toggle" class="language-btn" onclick="toggleLanguage()">
+  <button id="language-toggle" class="language-btn">
     <span class="flag">{{ languages.languages[other_lang].flag }}</span>
     <span class="lang-name">{{ languages.languages[other_lang].name }}</span>
   </button>
@@ -65,49 +65,63 @@ html[data-theme="dark"] .language-btn:hover {
 </style>
 
 <script>
-function toggleLanguage() {
-  const currentPath = window.location.pathname;
-  let newPath;
+(function() {
+  'use strict';
   
-  // Define page mappings between languages
-  const pageMap = {
-    fr_to_en: {
-      '/fr/': '/en/',
-    },
-    en_to_fr: {
-      '/en/': '/fr/',
+  function toggleLanguage() {
+    const currentPath = window.location.pathname;
+    let newPath;
+    
+    // Define page mappings between languages
+    const pageMap = {
+      fr_to_en: {
+        '/': '/en/',
+        '/cv/': '/en/cv/',
+        '/about/': '/en/about/',
+        '/teaching/': '/en/teaching/'
+      },
+      en_to_fr: {
+        '/en/': '/',
+        '/en/cv/': '/cv/',
+        '/en/about/': '/about/',
+        '/en/teaching/': '/teaching/'
+      }
+    };
+    
+    // Determine current language and target path
+    if (currentPath.startsWith('/en/')) {
+      // Currently on English, switch to French
+      newPath = pageMap.en_to_fr[currentPath] || currentPath.replace(/^\/en\//, '/');
+    } else {
+      // Currently on French, switch to English
+      newPath = pageMap.fr_to_en[currentPath] || '/en' + currentPath;
     }
-  };
-  
-  // Determine current language and target path
-  if (currentPath.startsWith('/en/')) {
-    // Currently on English, switch to French
-    newPath = pageMap.en_to_fr[currentPath] || currentPath.replace(/^\/en\//, '/');
-  } else {
-    // Currently on French, switch to English
-    newPath = pageMap.fr_to_en[currentPath] || '/en' + currentPath;
+    
+    // Store language preference
+    const newLang = currentPath.startsWith('/en/') ? 'fr' : 'en';
+    localStorage.setItem('preferred-language', newLang);
+    
+    // Navigate to new language version
+    window.location.href = newPath;
   }
-  
-  // Store language preference
-  const newLang = currentPath.startsWith('/en/') ? 'fr' : 'en';
-  localStorage.setItem('preferred-language', newLang);
-  
-  // Navigate to new language version
-  window.location.href = newPath;
-}
 
-// Set initial language from localStorage on page load (disabled to prevent loops)
-document.addEventListener('DOMContentLoaded', function() {
-  // Comment out automatic redirection to prevent infinite loops
-  // const savedLang = localStorage.getItem('preferred-language');
-  // const currentPath = window.location.pathname;
-  // const isOnEnglish = currentPath.startsWith('/en/');
-  // const isOnFrench = !isOnEnglish;
+  // Set up event listener when DOM is ready
+  document.addEventListener('DOMContentLoaded', function() {
+    const languageToggle = document.getElementById('language-toggle');
+    if (languageToggle) {
+      languageToggle.addEventListener('click', toggleLanguage);
+    }
+  });
   
-  // if (savedLang === 'en' && isOnFrench) {
-  //   toggleLanguage();
-  // } else if (savedLang === 'fr' && isOnEnglish) {
-  //   toggleLanguage();
-  // }
-});
+  // Fallback: if DOM is already loaded
+  if (document.readyState === 'loading') {
+    // DOM is still loading
+  } else {
+    // DOM is already loaded
+    const languageToggle = document.getElementById('language-toggle');
+    if (languageToggle) {
+      languageToggle.addEventListener('click', toggleLanguage);
+    }
+  }
+})();
 </script>

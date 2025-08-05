@@ -33,6 +33,8 @@ author:
   name             : "Arasu Candassamy"
   pronouns         : # example: "she/her"
   location         : "Palaiseau, France"
+  bio_fr         : "Étudiant en 3e année à ENSTA Paris"
+  bio_en         : "3rd-year student at ENSTA Paris"
   employer         : # "Red Brick University"
   uri              : # URL
   email            : "arasu.candassamy@gmail.com"
