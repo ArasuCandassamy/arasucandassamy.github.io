@@ -1,5 +1,6 @@
 {% comment %}
-Determine current language from page.lang or URL path (same logic as other components)
+Static language switcher - no JavaScript required
+Determine current language and create appropriate links
 {% endcomment %}
 {% assign current_lang = page.lang | default: site.default_lang | default: "fr" %}
 {% comment %}Fallback: detect language from URL if page.lang is not set{% endcomment %}
@@ -8,16 +9,45 @@ Determine current language from page.lang or URL path (same logic as other compo
 {% endif %}
 
 {% assign other_lang = "en" %}
+{% assign target_url = "" %}
+
 {% if current_lang == "en" %}
   {% assign other_lang = "fr" %}
+  {% comment %}Convert English URL to French{% endcomment %}
+  {% if page.url == "/en/" %}
+    {% assign target_url = "/" %}
+  {% elsif page.url == "/en/cv/" %}
+    {% assign target_url = "/cv/" %}
+  {% elsif page.url == "/en/about/" %}
+    {% assign target_url = "/about/" %}
+  {% elsif page.url == "/en/teaching/" %}
+    {% assign target_url = "/teaching/" %}
+  {% else %}
+    {% assign target_url = page.url | replace: "/en/", "/" %}
+  {% endif %}
+{% else %}
+  {% assign other_lang = "en" %}
+  {% comment %}Convert French URL to English{% endcomment %}
+  {% if page.url == "/" %}
+    {% assign target_url = "/en/" %}
+  {% elsif page.url == "/cv/" %}
+    {% assign target_url = "/en/cv/" %}
+  {% elsif page.url == "/about/" %}
+    {% assign target_url = "/en/about/" %}
+  {% elsif page.url == "/teaching/" %}
+    {% assign target_url = "/en/teaching/" %}
+  {% else %}
+    {% assign target_url = "/en" | append: page.url %}
+  {% endif %}
 {% endif %}
+
 {% assign languages = site.data.languages %}
 
 <div class="language-switcher">
-  <button id="language-toggle" class="language-btn">
+  <a href="{{ target_url | relative_url }}" class="language-btn">
     <span class="flag">{{ languages.languages[other_lang].flag }}</span>
     <span class="lang-name">{{ languages.languages[other_lang].name }}</span>
-  </button>
+  </a>
 </div>
 
 <style>
@@ -42,12 +72,15 @@ Determine current language from page.lang or URL path (same logic as other compo
   font-size: 14px;
   font-weight: 500;
   color: var(--global-text-color, #333);
+  text-decoration: none;
 }
 
 .language-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   border-color: var(--global-link-color, #52adc8);
+  text-decoration: none;
+  color: var(--global-text-color, #333);
 }
 
 .flag {
@@ -69,8 +102,6 @@ html[data-theme="dark"] .language-btn {
 html[data-theme="dark"] .language-btn:hover {
   border-color: var(--global-link-color, #52adc8);
   background: rgba(255, 255, 255, 0.05);
+  color: var(--global-text-color, #fff);
 }
 </style>
-
-<!-- Load the language switcher JavaScript -->
-<script src="{{ '/assets/js/language-switcher.js' | relative_url }}" defer></script>
